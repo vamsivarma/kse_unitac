@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    solara:
+        build: ./code/solara
+        image: kse_solara:1.0 
+        container_name: kse_solara
+        ports:
+            - '8765:8765'

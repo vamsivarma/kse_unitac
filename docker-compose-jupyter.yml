@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    jupyter:
+        build: jupyter
+        image: kse_jupyter:1.0 
+        container_name: kse_jupyter
+        ports:
+            - '8888:8888'
+        user: jovyan  
+        working_dir: /home/jovyan/
+        environment:
+            JUPYTER_ENABLE_LAB: 1 
+            NB_USER: jovyan
+            NB_GID: 1000
+            CHOWN_HOME: 'yes'
+            CHOWN_HOME_OPTS: '-R'
+        volumes:
+            - ./code/:/home/jovyan/examples/code
+            - ./data/:/home/jovyan/examples/data
+            - /var/run/docker.sock:/var/run/docker.sock
+        command: ['start.sh', 'jupyter', 'lab', '--ServerApp.base_url', '/', '--LabApp.allow_remote_access', 'True', '--LabApp.allow_origin','*','--LabApp.token','kse']
